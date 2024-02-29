@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위바위보 게임</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 50px auto;
+        }
+
+        .wdlContainer {
+            display: flex;
+
+        }
+
+        .wdl {
+            display: flex;
+            border: none;
+            background-color: #316cf4;
+            border-radius: 7px;
+            padding: 10px;
+            font-size: 15px;
+            color: white;
+            width: 50px;
+            height: 20px;
+            margin-right: 5px;
+            text-align: center;
+            justify-content: center;
+        }
+
+
+        #gameForm {
+            display: flex;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border-color: #d8d8d8;
+            border-top-left-radius: 7px;
+            border-bottom-left-radius: 7px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #316cf4;
+            font-size: 20px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 10%;
+            box-sizing: border-box;
+            border-top-right-radius: 7px;
+            border-bottom-right-radius: 7px;
+        }
+
+        button:hover {
+            background-color: #316cf4;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px;
+        }
+
+        td {
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>가위바위보 게임</h>
+            <p></p>
+            <form id="gameForm" action="{{ url_for('hw') }}" method="POST">
+                <select name="choices" style="font-size: 20px">
+                    <option value="바위">&#x270A</option>
+                    <option value="보">&#x270B</option>
+                    <option value="가위">&#x270C</option>
+                </select>
+                <button type="submit">제출하기</button>
+            </form>
+            <p></p>
+            <div style="border: 1px solid #c9c9c9;border-radius: 7px;padding: 15px;font-size: 18px;">
+                사용자 : {{ data.user_rsp }} 컴퓨터 : {{ data.cpu_rsp }} {{ data.result }}</div>
+            <p></p>
+            <div class="wdlContainer">
+                <div class="wdl">
+                    승 : {{ data.count[0] }}
+                </div>
+                <div class="wdl">
+                    무 : {{ data.count[1] }}
+                </div>
+                <div class="wdl">
+                    패 : {{ data.count[2] }}
+                </div>
+            </div>
+            <table>
+                <tr style="font-size: 18px;font-weight: bold;">
+                    <td>#</td>
+                    <td>컴퓨터</td>
+                    <td>사용자</td>
+                    <td>결과</td>
+                </tr>
+                {% for count in data.game_list %}
+                <tr style="font-size: 18px; font-weight: normal;">
+                    <td>{{ count[0]|e }}</td>
+                    <td>{{ count[1]|e }}</td>
+                    <td>{{ count[2]|e }}</td>
+                    <td>{{ count[3]|e }}</td>
+                </tr>
+                {% endfor %}
+
+
+            </table>
+    </div>
+</body>
+
+</html>
